@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Профиль</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <% if (user) { %>
+    <div class="profile">
+      <img src="<%= user.avatar %>" class="avatar">
+      <h1><%= user.name %></h1>
+      <a href="<%= user.profileUrl %>">Профиль Steam</a>
+      <a href="/logout">Выйти</a>
+    </div>
+  <% } else { %>
+    <p>Пожалуйста, войдите через Steam</p>
+  <% } %>
+</body>
+</html>
