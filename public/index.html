@@ -1,53 +1,167 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rustoria UA servers</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Rustoria UA | Офіційні сервери</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="https://pay.google.com/gp/p/js/pay.js" async onload="window.dispatchEvent(new Event('google-pay-loaded'))"></script>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Rustoria UA community</h1>
-            <div class="auth-button">
-                <a href="#" id="steam-login">
-                    <img src="steam-logo-mini.png" alt="Steam Login"> Увійти через Steam
-                </a>
+  <header class="main-header">
+    <div class="container">
+      <div class="logo">
+        <img src="img/rust-logo.jpg" alt="Rustoria UA" />
+        <h1>Rustoria <span>UA</span></h1>
+      </div>
+
+      <!-- Контейнер для кнопки/аватарки -->
+      <div id="auth-widget">
+        <a href="/auth/steam" class="steam-login-btn">
+          <img src="img/steam-icon.png" alt="Steam" />
+          <span>Увійти</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Блок статуса серверів -->
+    <section class="server-status">
+      <div class="status-header">
+        <h2><i class="fas fa-server"></i> Статуса серверів </h2>
+        <span class="last-updated">Оновлено: <span id="update-time">зараз</span></span>
+      </div>
+
+      <div class="server-cards">
+        <div
+          class="server-card online"
+          data-name="Rustoria UA MEDIUM"
+          data-ip="connect:45.67.89:28015"
+          data-mapurl="https://rustmaps.com/map/procedural"
+        >
+          <div class="server-info">
+            <h3>Rustoria UA MEDIUM</h3>
+            <div class="server-meta">
+              <span class="map">Map: Procedural</span>
+              <span class="wipe">Wipe: 01.07.2024</span>
             </div>
+          </div>
+          <div class="server-stats">
+            <div class="online-status">
+              <span class="status-dot"></span>
+              <span>Online</span>
+            </div>
+            <div class="player-count">
+              <span id="main-online">46</span>/70
+            </div>
+          </div>
         </div>
-    </header>
 
-    <main>
-        <section class="server-info">
-            <h2>Статус серверів</h2>
-            <p id="online-status">Визначення онлайну...</p>
-        </section>
+        <div
+          class="server-card online"
+          data-name="Rustoria UA MAIN"
+          data-ip="connect:123.45.67.90:28015"
+          data-mapurl="https://rustmaps.com/map/procedural"
+        >
+          <div class="server-info">
+            <h3>Rustoria UA MAIN</h3>
+            <div class="server-meta">
+              <span class="map">Map: Procedural</span>
+              <span class="wipe">Wipe: 01.07.2024</span>
+            </div>
+          </div>
+          <div class="server-stats">
+            <div class="online-status">
+              <span class="status-dot"></span>
+              <span>Online</span>
+            </div>
+            <div class="player-count">
+              <span id="main-online">630</span>/700
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <section class="server-list">
-            <h2>Доступні сервери</h2>
-            <ul id="server-list">
-                <li>Rustoria UA MAIN - 100/100</li>
-                <li>Rustoria UA Low Pop - 50/50</li>
-                <li>Rustoria UA Medium - 75/75</li>
-            </ul>
+    <!-- VIP-плашки -->
+    <section class="vip-section">
+      <h2><i class="fas fa-crown"></i> VIP Привілеї</h2>
+      <div class="vip-tiers">
+                <!-- VIP Tier 1 -->
+                <div class="vip-card" data-tier="pro">
+                    <div class="vip-header">
+                        <h3>BEGINNER</h3>
+                        <div class="price">$4.99<span>/міс</span></div>
+                    </div>
+                    <ul class="benefits">
+                        <li><i class="fas fa-check"></i> Префікс "BEGINNER"</li>
+                        <li><i class="fas fa-check"></i> Автосортування луту > /autosort</li>
+                        <li><i class="fas fa-check"></i> Кольоровий нік у чаті</li>
+                    </ul>
+                    <button class="buy-btn">Придбати</button>
+                </div>
+                <div class="vip-card" data-tier="pro">
+                    <div class="vip-header">
+                        <h3>PRO</h3>
+                        <div class="price">$9.99<span>/міс</span></div>
+                    </div>
+                    <ul class="benefits">
+                        <li><i class="fas fa-check"></i> Префікс "PRO"</li>
+                        <li><i class="fas fa-check"></i> Автосортування луту > /autosort</li>
+                        <li><i class="fas fa-check"></i> Кольоровий нік у чаті</li>
+                        <li><i class="fas fa-check"></i> Телепорт до тімейтів > /tp "player-nikname"</li>
+                    </ul>
+                    <button class="buy-btn">Придбати</button>
+                </div>
+                <div class="vip-card" data-tier="pro">
+                    <div class="vip-header">
+                        <h3>BIGDICK</h3>
+                        <div class="price">$19.9<span>/міс</span></div>
+                    </div>
+                    <ul class="benefits">
+                        <li><i class="fas fa-check"></i> Префікс "BIGDICK"</li>
+                        <li><i class="fas fa-check"></i> Автосортування луту > /autosort</li>
+                        <li><i class="fas fa-check"></i> Кольоровий нік у чаті</li>
+                        <li><i class="fas fa-check"></i> Телепорт до тімейтів > /tp "player-nikname"</li>
+                        <li><i class="fas fa-check"></i> Безкоштовні донатні речі раз на тиждень</li>
+                        <li><i class="fas fa-check"></i> Кіт рейдера раз на тиждень</li>
+                    </ul>
+                    <button class="buy-btn">Придбати</button>
+                </div>
+    </section>
+  </main>
 
-        </section>
+  <footer class="main-footer">
+    <div class="container">
+      <p>© 2025 Rustoria UA Community. Всі права захищені.</p>
+      <p>Контакти: +38 097 923 6013</p>
+      <div class="social-links">
+        <a href="#"><i class="fab fa-discord"></i></a>
+        <a href="#"><i class="fab fa-telegram"></i></a>
+      </div>
+    </div>
+  </footer>
 
-        <section class="vip-pricing">
-            <h2>VIP Pricing</h2>
-            <ul>
-                <li>PRO - $5.00</li>
-                <li>SPACE - $12.00</li>
-                <li>BIGDICK - $20.00</li>
-            </ul>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2025 Rust Server. All rights reserved.</p>
-    </footer>
-
-    <script src="js/script.js"></script>
+  <!-- Модальное окно -->
+  <div id="server-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span id="modal-close" class="modal-close">&times;</span>
+      <h2 id="modal-server-name">Server Name</h2>
+      <p><strong>IP для підключення:</strong> <span id="modal-server-ip"></span></p>
+      <p>
+        <strong>Посилання на мапу Rust Maps:</strong>
+        <a href="#" id="modal-server-map" target="_blank" rel="noopener noreferrer">Перейти</a>
+      </p>
+    </div>
+  </div>
+    <script src="routes/auth.js"></script>
+    <script src="server.js"></script>
+    <script src="modals/modals-script.js"></script>
+    <script src="payments/payment-method.js"></script>
 </body>
 </html>

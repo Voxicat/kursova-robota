@@ -1,17 +1,17 @@
 const passport = require('passport');
 const SteamStrategy = require('passport-steam').Strategy;
 
-module.exports = function() {
-  passport.use('steam', new SteamStrategy({  // Явно указываем имя стратегии
-    returnURL: `${process.env.DOMAIN}/auth/steam/return`,
-    realm: process.env.DOMAIN,
-    apiKey: process.env.STEAM_API_KEY,
-    profile: true
-  }, (identifier, profile, done) => {
-    console.log('Steam profile:', profile);
-    return done(null, profile);
-  }));
+module.exports = function(passport) {
+    passport.use(new SteamStrategy({
+        returnURL: 'http://localhost:3000/auth/steam/return',
+        realm: 'http://localhost:3000/',
+        apiKey: process.env.STEAM_API_KEY,
+    },
+    (identifier, profile, done) => {
+        console.log('Steam profile received:', profile.displayName);
+        return done(null, profile);
+    }));
 
-  passport.serializeUser((user, done) => done(null, user));
-  passport.deserializeUser((user, done) => done(null, user));
+    passport.serializeUser((user, done) => done(null, user));
+    passport.deserializeUser((obj, done) => done(null, obj));
 };

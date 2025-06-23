@@ -1,84 +1,49 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const onlineStatusElement = document.getElementById('online-status');
-  const userInfoElement = document.getElementById('user-info');
-  const steamLoginButton = document.getElementById('steam-login');
+document.addEventListener('DOMContentLoaded', async () => {
+    const authWidget = document.getElementById('auth-widget');
 
-  // Проверка авторизации при загрузке
-  async function checkAuth() {
     try {
-      const response = await fetch('/api/user');
-      if (response.ok) {
+        // Запрашиваем данные о текущем пользователе
+        const response = await fetch('/api/user');
+        if (!response.ok) throw new Error('Not authenticated');
+
         const user = await response.json();
-        showUserInfo(user);
-      }
+
+        // Обновляем интерфейс
+        authWidget.innerHTML = `
+            <div class="user-panel">
+                <img class="user-avatar" src="${user.avatar}" alt="Avatar">
+                <span class="user-name">${user.name}</span>
+                <a href="#" class="logout-btn" onclick="logout()">Вийти</a>
+            </div>
+        `;
     } catch (error) {
-      console.error('Auth check failed:', error);
+        console.log('User not authenticated:', error.message);
     }
-  }
-
-  // Отображение информации о пользователе
-  function showUserInfo(user) {
-    userInfoElement.innerHTML = `
-      <div class="user-profile">
-        <img src="${user.avatar}" class="user-avatar">
-        <span class="user-name">${user.name}</span>
-        <button id="logout-btn" class="logout-button">Logout</button>
-      </div>
-    `;
-    
-    document.getElementById('logout-btn').addEventListener('click', logout);
-  }
-
-  // Выход из системы
-  async function logout() {
-    try {
-      await fetch('/logout', { method: 'POST' });
-      window.location.reload();
-    } catch (error) {
-      console.error('Logout failed:', error);
-    }
-  }
-
-  // Имитация получения статуса сервера
-  function fetchServerStatus() {
-    setTimeout(() => {
-      const onlinePlayers = Math.floor(Math.random() * 100);
-      onlineStatusElement.textContent = `Online Players: ${onlinePlayers}`;
-    }, 1000);
-  }
-
-  // Обработчик кнопки Steam
- document.getElementById('steam-login').addEventListener('click', (e) => {
-  e.preventDefault();
-  window.location.href = '/auth/steam';
 });
 
-// Проверка авторизации при загрузке
-fetch('/api/user')
-  .then(response => response.json())
-  .then(user => {
-    if (user) {
-      document.getElementById('user-info').innerHTML = `
-        <img src="${user.avatar}" class="user-avatar">
-        <span>${user.name}</span>
-      `;
-    }
-  });
-
-// Вспомогательные функции
-function showNotification(message) {
-  const notification = document.createElement('div');
-  notification.className = 'auth-notification';
-  notification.textContent = message;
-  document.body.appendChild(notification);
-  setTimeout(() => notification.remove(), 5000);
+// Функция для выхода
+async function logout() {
+    await fetch('/logout', { method: 'POST' });
+    window.location.reload();
 }
 
-function showErrorModal(message) {
-  // Реализация модального окна с ошибкой
-}
+    // Обработка VIP-плашек
+    document.querySelectorAll('.buy-btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const tier = this.closest('.vip-card').dataset.tier;
+            
+            // Проверка авторизации
+            if (!document.querySelector('.user-avatar')) {
+                alert('Будь ласка, увійдіть через Steam для покупки VIP');
+                return;
+            }
+            
+            console.log(`Ініціалізація покупки: ${tier}`);
+            // Дополнительная логика покупки...
+        });
+    });
 
-  // Инициализация
-  fetchServerStatus();
-  checkAuth();
-});
+    // Обновляем статус каждые 60 секунд
+    setInterval(updateServerStatus, 60000);
+    updateServerStatus(); // Первый запрос
