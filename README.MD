@@ -20,7 +20,7 @@
 
 1. Клонувати репозиторій:
    ```sh
-   git clone <repo-url>
+   git clone https://github.com/Voxicat/kursova-robota.git
    cd site_proj
 
 2. Встановити залежності:
