@@ -54,9 +54,6 @@ passport
 passport-steam
 dotenv
 node-fetch
-## Контакти
-З питаннями звертайтесь до адміністратора спільноти Rustoria UA:
-Телефон: +38 097 923 6013
 
 ## Примітка
 Для роботи Steam-авторизації необхідно отримати Steam API Key на https://steamcommunity.com/dev/apikey та вказати його у .env.
